@@ -1,7 +1,9 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   FaFacebook,
   FaInstagram,
@@ -11,8 +13,10 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 
-import Search from "@/app/_components/Search";
 import config from "@/config/default";
+
+const Clock = dynamic(() => import("react-live-clock"));
+const Search = dynamic(() => import("@/app/_components/Search"));
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -20,6 +24,10 @@ const Header = () => {
   return (
     <header className="not-prose px-2 sm:px-4 py-2.5 w-full">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
+        <Suspense fallback={<>Loading...</>}>
+          <Clock format={"HH:mm:ss"} ticking={true} timezone={"US/Pacific"} />
+        </Suspense>
+
         <Link href="/" className="mx-auto block font-semibold dark:text-white">
           {config.appName.toUpperCase()}{" "}
         </Link>
@@ -29,7 +37,9 @@ const Header = () => {
             className="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 dark:hover:text-blue-700 rounded md:p-0 dark:text-white"
             aria-current="page"
           >
-            <Search />
+            <Suspense fallback={<>Loading...</>}>
+              <Search />
+            </Suspense>
           </li>
 
           <li>
