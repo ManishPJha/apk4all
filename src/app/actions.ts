@@ -1,9 +1,11 @@
 "use server";
 
-// import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 import { transformNotionPosts } from "@/lib/transform-posts";
 import { Post } from "@/types/app/post";
+import { getErrorMessage } from "@/utils/error-message";
 import { notionClient } from "@/utils/notion-client";
 
 const PAGE_SIZE = 10;
@@ -13,34 +15,38 @@ const PAGE_SIZE = 10;
  * @param databaseId notion database id
  * @returns database contents
  */
-export const getDatabseById = async (database_id: string): Promise<Post[]> => {
-  try {
-    if (!database_id) return [];
+export const getDatabseById = cache(
+  async (database_id: string): Promise<Post[]> => {
+    try {
+      if (!database_id) return [];
 
-    const database = await notionClient.databases.query({
-      database_id,
-      page_size: PAGE_SIZE,
-      sorts: [
-        {
-          timestamp: "created_time",
-          direction: "descending",
-        },
-      ],
-    });
+      const database = await notionClient.databases.query({
+        database_id,
+        page_size: PAGE_SIZE,
+        sorts: [
+          {
+            timestamp: "created_time",
+            direction: "descending",
+          },
+        ],
+      });
 
-    const transformedPosts = await transformNotionPosts(database.results);
+      if (!database) return [];
 
-    // revalidatePath("properties");
+      const transformedPosts = await transformNotionPosts(database.results);
 
-    return transformedPosts;
-  } catch (error) {
-    throw new Error(
-      `Could not retrieve databse ${database_id} from notion database. reason: ${
-        error instanceof Error ? error.message : error
-      }`
-    );
+      revalidatePath("/blog");
+
+      return transformedPosts;
+    } catch (error) {
+      throw new Error(
+        `Could not retrieve databse ${database_id} from notion database. reason: ${getErrorMessage(
+          error
+        )}`
+      );
+    }
   }
-};
+);
 
 export const getPageByIds = async (pageId: string) => {
   const results = await notionClient.pages.retrieve({

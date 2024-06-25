@@ -24,6 +24,6 @@ export const getBlurImageUrl = async (
       ...plaiceholder,
     };
   } catch (error) {
-    throw new Error(getErrorMessage(error));
+    throw new Error(`plaiceholder error: ${getErrorMessage(error)}`);
   }
 };

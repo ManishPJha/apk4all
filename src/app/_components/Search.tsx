@@ -13,13 +13,11 @@ const Search = () => {
 
   return (
     <Popover.Root>
-      <Popover.Trigger>
-        <button
-          className="cursor-pointer outline-none"
-          aria-label="Search the blog"
-        >
-          <FaSearch />
-        </button>
+      <Popover.Trigger
+        aria-label="Search the blog"
+        className="cursor-pointer outline-none"
+      >
+        <FaSearch />
       </Popover.Trigger>
 
       <Popover.Portal>

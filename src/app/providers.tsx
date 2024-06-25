@@ -3,10 +3,14 @@ import React from "react";
 
 import Base from "@/partials/Base";
 
+import { AppContextProvider } from "@/context/AppConext";
+
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeProvider attribute="class">
-      <Base>{children}</Base>
+      <AppContextProvider>
+        <Base>{children}</Base>
+      </AppContextProvider>
     </ThemeProvider>
   );
 };

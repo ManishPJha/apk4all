@@ -18,20 +18,27 @@ export const transformNotionPosts = async (
           Author: author,
         } = post.properties || {};
 
+        const coverImage =
+          cover && cover.files[0].file
+            ? cover.files[0].file.url
+            : cover.files[0].external.url;
+
         const _author = await getUserByIds(author.people[0].id);
-        const blurredImageUrl = await getBlurImageUrl(
-          cover.files[0].external.url
-        );
+        const blurredImageUrl = await getBlurImageUrl(coverImage);
 
         return {
           id: post.id,
           title: page.title[0].plain_text,
           slug: slug.rich_text[0].plain_text,
-          description: "",
+          description:
+            "Espresso recipes are important in cafés in terms of consistency and flavour. How and why are the espresso recipes made and what are the things you should consider when making a recipe for espresso? Let’s dig deeper into the world of espresso!Espresso recipes are important in cafés in terms of consistency and flavour. How and why are the espresso recipes made and what are the things you should consider when making a recipe for espresso? Let’s dig deeper into the world of espresso!"
+              .slice(0, 120)
+              .concat("..."),
           date: post.created_time,
           tags: tags.multi_select,
           category: category.select,
-          image: blurredImageUrl.base64,
+          image: coverImage,
+          placeholder: blurredImageUrl && blurredImageUrl.base64,
           author: _author.name || "Anonymous",
           publishedAt: post.last_edited_time,
         } as App.Post.Post;
@@ -41,55 +48,3 @@ export const transformNotionPosts = async (
     })
   );
 };
-
-// import { getUserByIds } from "@/app/actions";
-// import * as App from "@/types/app";
-// import { getBlurImageUrl } from "@/utils/blur-image";
-// import { getErrorMessage } from "@/utils/error-message";
-
-// export const transformNotionPosts = async (posts: any[]) => {
-//   const transformedPosts = await Promise.all<App.Post.Post>(
-//     posts.map(
-//       async (post) =>
-//         new Promise(async (resolve, reject) => {
-//           try {
-//             const {
-//               Page: page,
-//               Slug: slug,
-//               Tags: tags,
-//               Category: category,
-//               Cover: cover,
-//               Author: author,
-//             } = post.properties || {};
-
-//             const _author = await getUserByIds(author.people[0]["id"]);
-
-//             const bluredImageUrl = await getBlurImageUrl(
-//               cover.files[0]["external"]["url"]
-//             );
-
-//             const _posts = {
-//               id: post.id,
-//               title: page.title[0]["plain_text"],
-//               slug: slug.rich_text[0]["plain_text"],
-//               //   description: post.properties.description.rich_text[0].plain_text,
-//               description: "",
-//               date: post.created_time,
-//               tags: tags.multi_select,
-//               category: category.select,
-//               image: bluredImageUrl.base64,
-//               //   image: cover.files[0]["external"]["url"],
-//               author: _author.name ? _author.name : "Anonymous",
-//               publishedAt: post.last_edited_time,
-//             };
-
-//             resolve(_posts);
-//           } catch (error) {
-//             reject(getErrorMessage(error));
-//           }
-//         })
-//     )
-//   );
-
-//   return transformedPosts;
-// };

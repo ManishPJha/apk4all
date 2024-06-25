@@ -7,6 +7,7 @@ export interface Post {
   tags: string[];
   category: string[];
   image: string;
+  placeholder: string;
   author: string;
   publishedAt: string;
 }
