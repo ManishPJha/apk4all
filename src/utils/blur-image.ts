@@ -10,9 +10,10 @@ export const getBlurImageUrl = async (
   imageUrl: string
 ): Promise<PlaiceholderResponse> => {
   try {
-    const request = await fetch(imageUrl);
-    const arrayBuffer = await request.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    const buffer = await fetch(imageUrl).then(async (res) =>
+      Buffer.from(await res.arrayBuffer())
+    );
+
     const {
       metadata: { height, width },
       ...plaiceholder

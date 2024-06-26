@@ -7,20 +7,15 @@ import { useAppContext } from "@/context/AppConext";
 import { memo, useEffect } from "react";
 
 const PostGrid = memo(({ posts }: { posts: App.Post.Post[] }) => {
-  const { setPosts, posts: allPosts } = useAppContext();
-
-  useEffect(() => {
-    console.log("🌊 Grid Component is rendereing!");
-  }, []);
+  const { state, dispatch } = useAppContext();
 
   useEffect(() => {
     if (posts.length > 0) {
-      setPosts(posts);
+      dispatch({ type: "SET_POSTS", payload: posts });
     }
-    return () => {
-      setPosts([]);
-    };
-  }, [posts.length]);
+  }, [posts, dispatch]);
+
+  const allPosts = state.posts.length > 0 ? state.posts : posts;
 
   return (
     <div className="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

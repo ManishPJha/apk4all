@@ -1,24 +1,9 @@
-import type { Metadata } from "next";
+import Base from "@/partials/Base";
 
-import "../globals.css";
-
-import Providers from "../providers";
-
-export const metadata: Metadata = {
-  title: "Apk4all",
-  description: "Start learning new technologies!",
-};
-
-export default function RootLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className="bg-transparent dark:bg-gray-900">
-        <Providers>{children}</Providers>
-      </body>
-    </html>
-  );
+  return <Base>{children}</Base>;
 }

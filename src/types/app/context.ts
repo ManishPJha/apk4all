@@ -1,10 +1,15 @@
 import { type Post } from "./post";
 
+export type Action =
+  | { type: "SET_POSTS"; payload: Post[] }
+  | { type: "SET_POST"; payload: Post | null };
+
 export interface AppContext {
-  posts: Post[];
-  post: Post | null;
-  setPost: React.Dispatch<React.SetStateAction<Post | null>>;
-  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+  state: AppState;
+  dispatch: React.Dispatch<Action>;
 }
 
-export type AppState = Omit<AppContext, "setPost" | "setPosts">;
+export interface AppState {
+  posts: Post[];
+  post: Post | null;
+}
