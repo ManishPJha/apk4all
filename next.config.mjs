@@ -1,4 +1,13 @@
+import nextMdx from "@next/mdx";
 import withPlaiceholder from "@plaiceholder/next";
+
+const withMdx = nextMdx({
+  // By default only the `.mdx` extension is supported.
+  extension: /\.mdx?$/,
+  options: {
+    /* otherOptions… */
+  },
+});
 
 /** @type {import('next').NextConfig} */
 
@@ -36,6 +45,7 @@ const nextConfig = {
       },
     ],
   },
+  pageExtensions: ["md", "mdx", "tsx", "ts", "jsx", "js"],
 
   // suppress keyv warning
   webpack: (config, { webpack }) => {
@@ -50,4 +60,4 @@ const nextConfig = {
   },
 };
 
-export default withPlaiceholder(nextConfig);
+export default withPlaiceholder(withMdx(nextConfig));
