@@ -1,4 +1,4 @@
-import { getUserByIds } from "@/app/actions";
+// import { getUserByIds } from "@/app/actions";
 import * as App from "@/types/app";
 import { getBlurImageUrl } from "@/utils/blur-image";
 import { getErrorMessage } from "@/utils/error-message";
@@ -23,7 +23,8 @@ export const transformNotionPosts = async (
             ? cover.files[0].file.url
             : cover.files[0].external.url;
 
-        const _author = await getUserByIds(author.people[0].id);
+        const _author = { name: "" };
+        // const _author = await getUserByIds(author.people[0].id);
         const blurredImageUrl = await getBlurImageUrl(coverImage);
 
         return {

@@ -1,32 +1,85 @@
-// import { MDXRemote } from "next-mdx-remote";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import { FaChevronLeft } from "react-icons/fa";
 
-// import { getSinglePageData } from "@/app/actions";
+import { publishedDateFormat } from "@/app/_components/Card";
+import { getSinglePage } from "@/app/actions";
+import { humanizeSlug, markdownify, slugify } from "@/utils/text-converter";
 
-// import parseMDX from "@/utils/mdx-parser";
-// import { useMDXComponents } from "@/app/_components/MdxComponent";
+const MdxPage = dynamic(() => import("@/app/_components/MdxPage"), {
+  ssr: false,
+});
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const slug = decodeURIComponent(params.slug);
 
-  console.log("🚀 ~ Page ~ slug:", slug);
+  const { content, frontmatter } = await getSinglePage(slug);
 
-  // const { frontmatter, content } = await getSinglePageData(slug);
-
-  // const mdxContent = await parseMDX(content);
-
-  // const mdxComponents = useMDXComponents({});
+  const author = frontmatter.author ? frontmatter.author : "Anonymous";
 
   return (
-    <div>
-      <article
-        data-revalidated-at={new Date().getTime()}
-        className="mt-4 flex flex-col items-center md:mt-20"
-      >
-        <div className="relative aspect-[3/2] w-[90vw] max-w-[900px]">
-          {/* <MDXRemote {...mdxContent} components={mdxComponents} /> */}
-        </div>
-      </article>
-    </div>
+    <Suspense fallback={<>Loading...</>}>
+      <div className="flex flex-col justify-between px-4 mx-auto max-w-screen-xl">
+        <article className="mx-auto w-full max-w-3xl prose lg:prose-xl prose-stone dark:prose-invert">
+          <div className="my-4 flex items-center justify-between">
+            <Link
+              className="text-xl flex flex-row items-center mb-6 no-underline"
+              href={`/`}
+            >
+              <FaChevronLeft /> Back
+            </Link>
+          </div>
+
+          {markdownify(
+            frontmatter.title,
+            "h1",
+            "mb-4 mt-4 text-3xl font-extrabold text-gray-900 lg:mb-6 lg:text-4xl dark:text-white"
+          )}
+
+          {markdownify(frontmatter.description, "p", "lead")}
+
+          <header className="mb-4 lg:mb-6 not-format">
+            <address className="flex items-center mb-6 not-italic">
+              <div className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
+                <Image
+                  height={40}
+                  width={40}
+                  className="mr-4 w-10 h-10 rounded-full"
+                  src={frontmatter.image}
+                  alt={frontmatter.title}
+                />
+
+                <Link
+                  href={`/author/${slugify(author)}`}
+                  rel="author"
+                  className="no-underline text-xl font-bold text-gray-900 dark:text-white"
+                >
+                  {humanizeSlug(author)}
+                </Link>
+
+                {markdownify(
+                  publishedDateFormat(frontmatter.publishedAt),
+                  "time",
+                  "text-base font-light text-gray-500 dark:text-gray-400 mx-2"
+                )}
+
+                <div className="text-base w-1 h-1 rounded-full bg-black dark:bg-white mx-1"></div>
+
+                {markdownify(
+                  `${frontmatter.readingTime} Min Read`,
+                  "p",
+                  "text-base font-light text-gray-500 dark:text-gray-400"
+                )}
+              </div>
+            </address>
+          </header>
+
+          <MdxPage content={content} />
+        </article>
+      </div>
+    </Suspense>
   );
 };
 

@@ -8,7 +8,7 @@ const Base = ({ children }: { children: React.ReactNode }) => {
   return (
     <Fragment>
       <Header />
-      {children}
+      <main>{children}</main>
       <Footer />
     </Fragment>
   );

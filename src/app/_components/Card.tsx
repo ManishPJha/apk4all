@@ -1,8 +1,17 @@
 import * as App from "@/types/app";
+import { formatDate } from "@/utils/format-date";
 // import { getBlurImageUrl } from "@/utils/blur-image";
 // import { formatDate } from "@/utils/format-date";
 import Image from "next/image";
 import Link from "next/link";
+
+import config from "@/config/default";
+
+export function publishedDateFormat(publishedDate: string) {
+  return publishedDate
+    ? formatDate(new Date(publishedDate), "dd MMMM yyyy")
+    : formatDate(new Date(Date.now()), "dd MMMM yyyy");
+}
 
 const Card = async ({ item }: { item: App.Page.SinglePage }) => {
   const { frontmatter, slug } = item;
@@ -26,12 +35,11 @@ const Card = async ({ item }: { item: App.Page.SinglePage }) => {
         <div className="p-3">
           <div className="flex mb-3">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {/* {formatDate(new Date(frontmatter.publishedAt), "dd MMMM yyyy")} */}
-              {frontmatter.publishedAt}
+              {publishedDateFormat(frontmatter.publishedAt)}
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mx-1"> , </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              {frontmatter.readingTime} min read
+              {frontmatter?.readingTime || config.defaultReadTime} min read
             </p>
           </div>
           <Link href={`/blog/${encodeURIComponent(slug.toLowerCase())}`}>

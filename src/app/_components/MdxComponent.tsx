@@ -1,3 +1,4 @@
+import cn from "@/utils/cn";
 import type { MDXComponents } from "mdx/types";
 import Image, { ImageProps } from "next/image";
 
@@ -15,7 +16,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         sizes="100vw"
         style={{ width: "100%", height: "auto" }}
         {...(props as ImageProps)}
+        className={cn("mx-auto", props.className)}
         alt={props.alt || "alt text"}
+        height={200}
+        width={200}
       />
     ),
     ...components,

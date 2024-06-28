@@ -7,9 +7,11 @@ export const slugify = (content: string) => {
   return slug(content);
 };
 
+type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | " h6" | "p";
+
 export const markdownify = (
   content: string,
-  tag: string,
+  tag: "div" | "span" | "time" | Headings,
   className: string
 ) => {
   if (!content) return null;
@@ -34,13 +36,26 @@ export const markdownify = (
   );
 };
 
+export const humanizeSlug = (value: string) => {
+  if (!value) return null;
+
+  return value
+    .replace(/^[\s_]+|[\s_]+$/g, "") // Remove leading/trailing spaces or underscores
+    .replace(/[_-\s]+/g, " ") // Replace underscores, hyphens, and spaces with a single space
+    .replace(/\b\w/g, function (m) {
+      // Capitalize the first letter of each word
+      return m.toUpperCase();
+    });
+};
+
 export const humanize = (content: string) => {
   if (!content) return null;
 
   return content
-    .replace(/^[\s_]+|[\s_]+$/g, "")
-    .replace(/[_\s]+/g, " ")
+    .replace(/^[\s_]+|[\s_]+$/g, "") // Remove leading/trailing spaces or underscores
+    .replace(/[_\s]+/g, " ") // Replace underscores and spaces with a single space
     .replace(/^[a-z]/, function (m) {
+      // Capitalize the first letter of entire word
       return m.toUpperCase();
     });
 };

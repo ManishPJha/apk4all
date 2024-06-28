@@ -1,11 +1,14 @@
 import nextMdx from "@next/mdx";
 import withPlaiceholder from "@plaiceholder/next";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 const withMdx = nextMdx({
   // By default only the `.mdx` extension is supported.
   extension: /\.mdx?$/,
   options: {
-    /* otherOptions… */
+    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [remarkGfm],
   },
 });
 
@@ -46,6 +49,15 @@ const nextConfig = {
     ],
   },
   pageExtensions: ["md", "mdx", "tsx", "ts", "jsx", "js"],
+
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/blog",
+  //     },
+  //   ];
+  // },
 
   // suppress keyv warning
   webpack: (config, { webpack }) => {

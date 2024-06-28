@@ -1,10 +1,10 @@
 import { MetadataRoute } from "next";
 
-import { getDatabseById } from "@/app/actions";
+import { getAllSinglePage } from "@/app/actions";
 import config from "@/config/default";
 
 export default async function sitemap() {
-  const allPosts = await getDatabseById(config.notionDatabaseId);
+  const allPosts = await getAllSinglePage(config.blogsFolder);
 
   const siteMap: MetadataRoute.Sitemap = [
     {
@@ -30,7 +30,9 @@ export default async function sitemap() {
   allPosts.map((post) =>
     siteMap.push({
       url: `${config.appUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.publishedAt),
+      lastModified: post.frontmatter.publishedAt
+        ? new Date(post.frontmatter.publishedAt)
+        : new Date(),
       changeFrequency: "weekly",
       priority: 0.5,
     })
