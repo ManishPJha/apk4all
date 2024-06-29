@@ -1,9 +1,9 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 
+import Button from "@/app/_components/Button";
 import { publishedDateFormat } from "@/app/_components/Card";
 import { getSinglePage } from "@/app/actions";
 import { humanizeSlug, markdownify, slugify } from "@/utils/text-converter";
@@ -24,12 +24,13 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       <div className="flex flex-col justify-between px-4 mx-auto max-w-screen-xl">
         <article className="mx-auto w-full max-w-3xl prose lg:prose-xl prose-stone dark:prose-invert">
           <div className="my-4 flex items-center justify-between">
-            <Link
-              className="text-xl flex flex-row items-center mb-6 no-underline"
-              href={`/`}
+            <Button
+              className="text-xl flex flex-row items-center mb-6 no-underline p-0"
+              transparent
+              goBack
             >
               <FaChevronLeft /> Back
-            </Link>
+            </Button>
           </div>
 
           {markdownify(
@@ -51,13 +52,14 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                   alt={frontmatter.title}
                 />
 
-                <Link
-                  href={`/author/${slugify(author)}`}
-                  rel="author"
-                  className="no-underline text-xl font-bold text-gray-900 dark:text-white"
+                <Button
+                  redirectTo={`/author/${slugify(author)}`}
+                  className="no-underline text-xl text-gray-900 dark:text-white"
+                  bold
+                  transparent
                 >
                   {humanizeSlug(author)}
-                </Link>
+                </Button>
 
                 {markdownify(
                   publishedDateFormat(frontmatter.publishedAt),

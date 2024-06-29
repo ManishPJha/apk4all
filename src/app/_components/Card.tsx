@@ -1,11 +1,12 @@
+"use client";
+
 import * as App from "@/types/app";
 import { formatDate } from "@/utils/format-date";
-// import { getBlurImageUrl } from "@/utils/blur-image";
-// import { formatDate } from "@/utils/format-date";
 import Image from "next/image";
 import Link from "next/link";
 
 import config from "@/config/default";
+import cn from "@/utils/cn";
 
 export function publishedDateFormat(publishedDate: string) {
   return publishedDate
@@ -13,13 +14,22 @@ export function publishedDateFormat(publishedDate: string) {
     : formatDate(new Date(Date.now()), "dd MMMM yyyy");
 }
 
-const Card = async ({ item }: { item: App.Page.SinglePage }) => {
+const Card = ({
+  item,
+  className,
+}: {
+  item: App.Page.SinglePage;
+  className?: string;
+}) => {
   const { frontmatter, slug } = item;
 
-  // const { base64: placeholder } = await getBlurImageUrl(frontmatter.image);
+  const cardCombinedClasses = cn(
+    "my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1",
+    className
+  );
 
   return (
-    <div className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1">
+    <div className={cardCombinedClasses}>
       <div className="max-w-full m-2 sm:m-0 bg-gray-100 shadow-sm dark:bg-gray-800">
         <div className="relative w-full h-64 overflow-hidden rounded-lg">
           <Image

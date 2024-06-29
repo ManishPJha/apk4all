@@ -1,14 +1,14 @@
-// import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import {
-    FaFacebook,
-    FaGlobe,
-    FaInstagram,
-    FaLinkedin,
-    FaTwitter,
+  FaFacebook,
+  FaGlobe,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
 } from "react-icons/fa";
 
-import PostGrid from "@/app/_components/PostGrid";
+import SliderPage from "@/app/_pages/SliderPage";
 import { getAllSinglePage, getAuthorPage } from "@/app/actions";
 import config from "@/config/default";
 import { markdownify } from "@/utils/text-converter";
@@ -40,24 +40,21 @@ const page = async ({
     return <p>Author not found</p>;
   }
 
-  //   console.log("🖤 ", JSON.stringify(author.frontmatter));
-  //   console.log("🍎 ", JSON.stringify(relatedPosts));
-
   return (
     <>
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="p-10 text-gray-500 sm:text-lg dark:text-gray-400">
-            {/* <Image
+            <Image
               width={144}
               height={144}
               className="w-36 h-36 p-2 rounded-full mx-auto ring-2 ring-gray-300 dark:ring-gray-500"
-              src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-              alt="Bordered avatar"
-            /> */}
+              src="/images/banner-author.png"
+              alt="author avatar"
+            />
 
             <h2 className="mb-4 mt-4 text-4xl tracking-tight font-bold text-center text-gray-900 dark:text-white">
-              {authorName.replaceAll("-", " ")}
+              {author.frontmatter.name}
             </h2>
             <p className="mb-4 font-light text-center">
               Track work across the enterprise through an open, collaborative
@@ -127,13 +124,7 @@ const page = async ({
             "mb-8 text-2xl font-bold text-gray-900 dark:text-white"
           )}
 
-          <PostGrid posts={relatedPosts} />
-
-          {/* <div className="container my-12 mx-auto grid grid-cols-1 gap-12 md:gap-12 lg:gap-12  lg:grid-cols-3  md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 ">
-            {relatedPosts.map((post) => (
-              <Card key={post.slug} item={post} />
-            ))}
-          </div> */}
+          <SliderPage relatedPosts={relatedPosts} />
         </div>
       </aside>
     </>

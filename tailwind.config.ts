@@ -19,6 +19,10 @@ const config: Config = {
           xl: "5rem",
         },
       },
+      colors: {
+        "slick-dot-inactive": "rgba(255, 255, 255, 0.5)",
+        "slick-dot-active": "#ffffff",
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],
