@@ -4,8 +4,8 @@ import { Suspense } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 
 import Button from "@/app/_components/Button";
-import { publishedDateFormat } from "@/app/_components/Card";
 import { getSinglePage } from "@/app/actions";
+import { formatDate } from "@/utils/format-date";
 import { humanizeSlug, markdownify, slugify } from "@/utils/text-converter";
 
 const MdxPage = dynamic(() => import("@/app/_components/MdxPage"), {
@@ -18,6 +18,8 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   const { content, frontmatter } = await getSinglePage(slug);
 
   const author = frontmatter.author ? frontmatter.author : "Anonymous";
+
+  if (!frontmatter) return null;
 
   return (
     <Suspense fallback={<>Loading...</>}>
@@ -62,7 +64,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
                 </Button>
 
                 {markdownify(
-                  publishedDateFormat(frontmatter.publishedAt),
+                  formatDate(new Date(frontmatter.publishedAt), "dd MMMM yyyy"),
                   "time",
                   "text-base font-light text-gray-500 dark:text-gray-400 mx-2"
                 )}
