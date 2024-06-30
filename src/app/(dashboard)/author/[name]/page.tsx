@@ -143,5 +143,7 @@ export default page;
 export async function generateStaticParams() {
   const allPosts = await getAllSinglePage(config.blogsFolder);
 
-  return allPosts.map((post) => post.frontmatter.author);
+  return allPosts.map((post) => ({
+    name: post.frontmatter.author
+  }));
 }
