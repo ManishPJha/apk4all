@@ -1,7 +1,7 @@
 ---
 title: "Best practices for SEO in Next.js"
 description: "As the world becomes more digitized, businesses are striving to make their online presence more visible. One of the most effective ways to achieve this is through search engine optimization (SEO). With Next.js, a popular React framework, developers can build high-performance websites that are also optimized for SEO. In this article, we will explore some of the best practices for SEO with Next.js."
-image: https://file.notion.so/f/f/2a15d9c9-7d6b-4e83-adde-89c120ef628d/28ed4e5f-8569-42bf-9cc8-1888bb3c1a67/1708799024322.png?id=c65a570a-067a-4ba1-93ab-2e15d4a1f812&table=block&spaceId=2a15d9c9-7d6b-4e83-adde-89c120ef628d&expirationTimestamp=1719734400000&signature=DnaAgk-BsAAI6DzWb37wxjlxS-q_UuBYahqW_zmdYfQ&downloadName=1708799024322.png
+image: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmarketplace.webkul.com%2Fwp-content%2Fuploads%2F2022%2F03%2FSEO-Impact-of-NextJS-Image.png&f=1&nofb=1&ipt=f4303f983a346e44321878f31fc98d7c16d9a36ab0b7d8f989afad2d40b03e8c&ipo=images
 categories: ["research"]
 featured: true
 draft: false

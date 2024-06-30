@@ -1,5 +1,6 @@
 "use client"; // Error components must be Client Components
 
+import { getErrorMessage } from "@/utils/error-message";
 import { useEffect } from "react";
 
 export default function Error({
@@ -11,7 +12,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(`error >>>>`,error);
+    console.error(`error >>>>`, getErrorMessage(error));
   }, [error]);
 
   return (

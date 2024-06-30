@@ -37,9 +37,9 @@ const Card = ({
             width={1000}
             height={324}
             src={frontmatter.image}
-            alt="cover image"
-            // placeholder="blur"
-            // blurDataURL={placeholder}
+            alt={frontmatter.title}
+            placeholder="blur"
+            blurDataURL={frontmatter.placeholder}
           />
         </div>
         <div className="p-3">

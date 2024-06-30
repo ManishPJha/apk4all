@@ -7,6 +7,7 @@ import path from "path";
 import config from "@/config/default";
 import * as App from "@/types/app";
 import { AuthorFrontmatter, Frontmatter } from "@/types/app/page";
+import { getBlurImageUrl } from "@/utils/blur-image";
 import { getErrorMessage } from "@/utils/error-message";
 
 export const getAllSinglePage = async (
@@ -19,21 +20,26 @@ export const getAllSinglePage = async (
       (file) => file.endsWith(".md") && !file.startsWith("_")
     );
 
-    const singlePages: App.Page.AllSinglePages = filterSingleFiles.map(
-      (file) => {
+    const singlePages: App.Page.AllSinglePages = await Promise.all(
+      filterSingleFiles.map(async (file) => {
         const slug = file.replace(".md", "");
         const pageData = fs.readFileSync(path.join(folder, file), "utf-8");
         const pageDataParsed = matter(pageData);
-        const frontmatter = pageDataParsed.data as unknown as Frontmatter;
+        const frontmatter = pageDataParsed.data as Frontmatter;
         const content = pageDataParsed.content;
         const url = frontmatter.url ? frontmatter.url.replace("/", "") : slug;
+
+        // Fetch the placeholder value
+        const { base64: placeholder } = await getBlurImageUrl(
+          frontmatter.image
+        );
 
         return {
           slug: url,
           content,
-          frontmatter,
+          frontmatter: { ...frontmatter, placeholder },
         };
-      }
+      })
     );
 
     const filteredByDate = singlePages.filter(

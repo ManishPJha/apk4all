@@ -2,6 +2,7 @@ export interface Frontmatter {
   title: string;
   description: string;
   image: string;
+  placeholder: string;
   categories: string[];
   featured: boolean;
   url?: string;

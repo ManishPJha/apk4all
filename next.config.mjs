@@ -48,20 +48,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "file.notion.so",
+        hostname: "external-content.duckduckgo.com",
       },
     ],
   },
   pageExtensions: ["md", "mdx", "tsx", "ts", "jsx", "js"],
-
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/blog",
-  //     },
-  //   ];
-  // },
 
   // suppress keyv warning
   webpack: (config, { webpack }) => {
