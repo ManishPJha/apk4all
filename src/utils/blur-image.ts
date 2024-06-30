@@ -10,6 +10,10 @@ export const getBlurImageUrl = async (
   imageUrl: string
 ): Promise<PlaiceholderResponse> => {
   try {
+    if (!imageUrl) {
+      throw new Error("Image URL is required");
+    }
+
     const buffer = await fetch(imageUrl).then(async (res) =>
       Buffer.from(await res.arrayBuffer())
     );

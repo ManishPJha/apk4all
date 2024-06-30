@@ -1,7 +1,5 @@
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 import {
   FaFacebook,
   FaGlobe,
@@ -10,28 +8,14 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 
-import { getAllSinglePage, getAuthorPage } from "@/app/actions";
-import config from "@/config/default";
-import { markdownify } from "@/utils/text-converter";
-
-const SliderPage = dynamic(() => import("@/app/_pages/SliderPage"), {
-  ssr: false,
-});
+import { getAuthorPage } from "@/app/actions";
 
 async function getAuthorPageContents(authorName: string) {
-  const [author, pages] = await Promise.all([
-    await getAuthorPage(authorName),
-    await getAllSinglePage(config.blogsFolder),
-  ]);
+  if (authorName) {
+    const author = await getAuthorPage(authorName);
 
-  const relatedPosts = pages.filter(
-    (page) => page.frontmatter.author === authorName
-  );
-
-  return {
-    author,
-    relatedPosts,
-  };
+    return author;
+  }
 }
 
 const page = async ({
@@ -39,7 +23,7 @@ const page = async ({
 }: {
   params: { name: string };
 }) => {
-  const { author, relatedPosts } = await getAuthorPageContents(authorName);
+  const author = await getAuthorPageContents(authorName);
 
   if (!author) {
     return <p>Author not found</p>;
@@ -118,7 +102,7 @@ const page = async ({
           </div>
         </div>
       </section>
-      <aside
+      {/* <aside
         aria-label="Related articles"
         className="py-8 lg:py-24 bg-gray-50 dark:bg-gray-800"
       >
@@ -128,22 +112,10 @@ const page = async ({
             "h2",
             "mb-8 text-2xl font-bold text-gray-900 dark:text-white"
           )}
-
-          <Suspense fallback={null}>
-            <SliderPage relatedPosts={relatedPosts} />
-          </Suspense>
         </div>
-      </aside>
+      </aside> */}
     </>
   );
 };
 
 export default page;
-
-export async function generateStaticParams() {
-  const allPosts = await getAllSinglePage(config.blogsFolder);
-
-  return allPosts.map((post) => ({
-    name: post.frontmatter.author
-  }));
-}
