@@ -1,5 +1,7 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   FaFacebook,
   FaGlobe,
@@ -8,10 +10,13 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 
-import SliderPage from "@/app/_pages/SliderPage";
 import { getAllSinglePage, getAuthorPage } from "@/app/actions";
 import config from "@/config/default";
 import { markdownify } from "@/utils/text-converter";
+
+const SliderPage = dynamic(() => import("@/app/_pages/SliderPage"), {
+  ssr: false,
+});
 
 async function getAuthorPageContents(authorName: string) {
   const [author, pages] = await Promise.all([
@@ -124,7 +129,9 @@ const page = async ({
             "mb-8 text-2xl font-bold text-gray-900 dark:text-white"
           )}
 
-          <SliderPage relatedPosts={relatedPosts} />
+          <Suspense fallback={null}>
+            <SliderPage relatedPosts={relatedPosts} />
+          </Suspense>
         </div>
       </aside>
     </>
@@ -132,3 +139,9 @@ const page = async ({
 };
 
 export default page;
+
+export async function generateStaticParams() {
+  const allPosts = await getAllSinglePage(config.blogsFolder);
+
+  return allPosts.map((post) => post.frontmatter.author);
+}

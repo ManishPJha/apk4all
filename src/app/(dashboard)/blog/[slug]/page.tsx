@@ -3,7 +3,6 @@ import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa";
 
 import Button from "@/app/_components/Button";
-// import MdxPage from "@/app/_components/MdxPage";
 import { getAllSinglePage, getSinglePage } from "@/app/actions";
 import config from "@/config/default";
 import { formatDate } from "@/utils/format-date";
