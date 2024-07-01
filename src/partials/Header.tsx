@@ -24,7 +24,7 @@ const Header = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="not-prose px-2 sm:px-4 py-2.5 w-full">
+    <header className="not-prose px-2 sm:px-4 py-2.5 w-full bg-white dark:bg-backgroundColor-primary">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         {/* <Clock format={"HH:mm:ss"} ticking={true} timezone={"US/Pacific"} /> */}
 
@@ -36,12 +36,12 @@ const Header = () => {
           <Link
             prefetch
             href="/blog"
-            className="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 dark:hover:text-blue-700 hover:cursor-pointer rounded md:p-0 dark:text-white"
+            className="block py-2 pl-3 pr-4 text-gray-700 hover:text-primary-400 dark:hover:text-primary-400 hover:cursor-pointer rounded md:p-0 dark:text-white"
           >
             All Blogs
           </Link>
           <li
-            className="block py-2 pl-3 pr-4 text-gray-700 hover:text-blue-700 dark:hover:text-blue-700 rounded md:p-0 dark:text-white"
+            className="block py-2 pl-3 pr-4 text-gray-700 hover:text-primary-400 dark:hover:text-primary-400 rounded md:p-0 dark:text-white"
             aria-current="page"
           >
             <Suspense fallback={<>Loading...</>}>
@@ -52,7 +52,7 @@ const Header = () => {
           <li>
             <Link
               href="#"
-              className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:text-blue-700 dark:hover:text-blue-700 md:p-0 dark:text-white"
+              className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:text-primary-400 dark:hover:text-primary-400 md:p-0 dark:text-white"
               aria-current="page"
             >
               <FaTwitter />
@@ -61,7 +61,7 @@ const Header = () => {
           <li>
             <Link
               href="#"
-              className="block py-2 pl-3 pr-4 text-gray-700 rounded  hover:text-blue-700 dark:hover:text-blue-700 md:p-0 dark:text-white"
+              className="block py-2 pl-3 pr-4 text-gray-700 rounded  hover:text-primary-400 dark:hover:text-primary-400 md:p-0 dark:text-white"
             >
               {" "}
               <FaFacebook />
@@ -70,7 +70,7 @@ const Header = () => {
           <li>
             <Link
               href="#"
-              className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:text-blue-700 dark:hover:text-blue-700 md:p-0 dark:text-white"
+              className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:text-primary-400 dark:hover:text-primary-400 md:p-0 dark:text-white"
             >
               <FaLinkedin />
             </Link>
@@ -78,7 +78,7 @@ const Header = () => {
           <li>
             <Link
               href="#"
-              className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:text-blue-700 dark:hover:text-blue-700 md:p-0 dark:text-white"
+              className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:text-primary-400 dark:hover:text-primary-400 md:p-0 dark:text-white"
             >
               <FaInstagram />
             </Link>

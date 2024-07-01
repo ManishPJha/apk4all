@@ -28,7 +28,7 @@ const Page = async ({ params }: PageParams) => {
   const author = frontmatter.author ? frontmatter.author : "Anonymous";
 
   return (
-    <div className="flex flex-col justify-between px-4 mx-auto max-w-screen-xl">
+    <div className="flex flex-col justify-between px-4 mx-auto max-w-screen-xl dark:bg-backgroundColor-primary bg-white">
       <article className="mx-auto w-full max-w-3xl prose lg:prose-xl prose-stone dark:prose-invert">
         <div className="my-4 flex items-center justify-between">
           <Button

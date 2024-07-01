@@ -2,6 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --bg-default: #222223;
+  --scrollbar-track: #00ebf0;
+  --scrollbar-thumb: #222223;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-track);
+}
+
+@layer utilities {
+  .bg-gradient-center {
+    background: radial-gradient(
+      circle,
+      rgba(25, 46, 75, 1) 0%,
+      rgba(34, 34, 35, 1) 32%
+    );
+  }
+
+  .bg-gradient-btn {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 235, 240, 0.19),
+      rgba(0, 235, 240, 0.19)
+    );
+  }
+}
+
+.bg-gradient-footer {
+  background: radial-gradient(
+    49.05% 51.14% at 50.08% 51.38%,
+    rgba(87, 144, 255, 0.14) 0%,
+    rgba(75, 146, 233, 0.082171) 41.31%,
+    rgba(58, 149, 201, 0) 100%
+  );
+}
+
 /* styles/slick.css */
 .slick-dots li button:before {
   @apply text-slick-dot-inactive; /* Use the custom color defined in Tailwind config */
@@ -9,4 +68,8 @@
 
 .slick-dots li.slick-active button:before {
   @apply text-slick-dot-active; /* Use the custom color defined in Tailwind config */
+}
+
+body {
+  background-color: var(--bg-default);
 }

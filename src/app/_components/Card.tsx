@@ -24,13 +24,13 @@ const Card = ({
   const { frontmatter, slug } = item;
 
   const cardCombinedClasses = cn(
-    "my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-white dark:bg-gray-800 duration-300 hover:-translate-y-1",
+    "my-8 rounded shadow-lg dark:shadow-gray-900 bg-white dark:bg-primary-900 duration-300 hover:-translate-y-1",
     className
   );
 
   return (
     <div className={cardCombinedClasses}>
-      <div className="max-w-full m-2 sm:m-0 bg-gray-100 shadow-sm dark:bg-gray-800">
+      <div className="max-w-full m-2 sm:m-0 bg-white dark:bg-primary-900">
         <div className="relative w-full h-64 overflow-hidden rounded-lg">
           <Image
             className="object-cover w-full h-full"
