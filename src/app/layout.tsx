@@ -1,4 +1,4 @@
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 
 import "slick-carousel/slick/slick-theme.css";
@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-transparent dark:bg-gray-900">
         <GoogleAnalytics gaId="G-XZ7YBREFJV" />
+        <GoogleTagManager gtmId="GTM-N68JSN77" />
         <Providers>{children}</Providers>
       </body>
     </html>
