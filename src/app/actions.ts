@@ -16,6 +16,10 @@ export const getAllSinglePage = async (
   try {
     const filesPath = fs.readdirSync(folder);
 
+    if (!filesPath.length) {
+      throw new Error("No single page files found");
+    }
+
     const filterSingleFiles = filesPath.filter(
       (file) => file.endsWith(".md") && !file.startsWith("_")
     );
@@ -72,6 +76,40 @@ export const getSinglePage = async (
   }
 };
 
+export const getAllAuthors = async (folder: string) => {
+  try {
+    const filesPath = fs.readdirSync(folder);
+
+    if (!filesPath.length) {
+      throw new Error("No authors found");
+    }
+
+    const filterAuthorFiles = filesPath.filter(
+      (file) => file.endsWith(".md") && !file.startsWith("_")
+    );
+
+    const authors: App.Page.AllAuthorsPage = await Promise.all(
+      filterAuthorFiles.map(async (file) => {
+        const name = file.replace(".md", "");
+        const authorData = fs.readFileSync(path.join(folder, file), "utf-8");
+        const authorDataParsed = matter(authorData);
+        const frontmatter = authorDataParsed.data as AuthorFrontmatter;
+        const content = authorDataParsed.content;
+
+        return {
+          slug: name,
+          frontmatter,
+          content,
+        };
+      })
+    );
+
+    return authors;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
+};
+
 export const getAuthorPage = async (
   name: string
 ): Promise<App.Page.AuthorPage> => {
@@ -80,6 +118,11 @@ export const getAuthorPage = async (
       path.join(config.authorsFolder, `${name}.md`),
       "utf-8"
     );
+
+    if (!authorData) {
+      throw new Error("Author not found");
+    }
+
     const authorDataParsed = matter(authorData);
     const frontmatter = authorDataParsed.data as unknown as AuthorFrontmatter;
     const content = authorDataParsed.content;

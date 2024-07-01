@@ -8,7 +8,8 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 
-import { getAuthorPage } from "@/app/actions";
+import { getAllAuthors, getAuthorPage } from "@/app/actions";
+import config from "@/config/default";
 
 async function getAuthorPageContents(authorName: string) {
   if (authorName) {
@@ -119,3 +120,11 @@ const page = async ({
 };
 
 export default page;
+
+export async function generateStaticParams() {
+  const authors = await getAllAuthors(config.authorsFolder);
+
+  return authors.map((author) => ({
+    name: author.slug,
+  }));
+}

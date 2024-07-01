@@ -38,3 +38,5 @@ export interface AuthorPage {
   frontmatter: AuthorFrontmatter;
   content: string;
 }
+
+export type AllAuthorsPage = Array<AuthorPage>;
