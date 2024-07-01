@@ -1,4 +1,5 @@
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 
 import "slick-carousel/slick/slick-theme.css";
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body>
         <GoogleAnalytics gaId="G-XZ7YBREFJV" />
         <GoogleTagManager gtmId="GTM-N68JSN77" />
+        <SpeedInsights />
         <Providers>{children}</Providers>
       </body>
     </html>
