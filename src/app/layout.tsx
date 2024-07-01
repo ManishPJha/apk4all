@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 
 import "slick-carousel/slick/slick-theme.css";
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-transparent dark:bg-gray-900">
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GAID} />
         <Providers>{children}</Providers>
       </body>
     </html>
