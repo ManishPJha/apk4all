@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-transparent dark:bg-gray-900">
+      <body>
         <GoogleAnalytics gaId="G-XZ7YBREFJV" />
         <GoogleTagManager gtmId="GTM-N68JSN77" />
         <Providers>{children}</Providers>

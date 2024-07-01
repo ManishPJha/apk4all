@@ -77,3 +77,15 @@ export const htmlEntityDecoder = (htmlWithEntities: string) => {
   );
   return htmlWithoutEntities;
 };
+
+export const htmlEntityEncoder = (text: string) => {
+  const entityList: { [key: string]: string } = {
+    "<": "&lt;",
+    ">": "&gt;",
+    "&": "&amp;",
+    '"': "&quot;",
+    "'": "&#39;",
+  };
+
+  return text.replace(/[<>&"']/g, (char) => entityList[char]);
+};

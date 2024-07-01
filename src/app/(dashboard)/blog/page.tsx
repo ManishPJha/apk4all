@@ -7,7 +7,7 @@ const page = async () => {
   const posts = await getAllSinglePage(config.blogsFolder);
 
   return (
-    <section className="bg-gray-100 dark:bg-gray-900 py-10 px-12">
+    <section className="py-10 px-12">
       {posts.length && <PostGrid posts={posts} />}
     </section>
   );
