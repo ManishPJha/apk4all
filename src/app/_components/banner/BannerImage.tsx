@@ -6,6 +6,7 @@ const BannerImage = ({ bannerImageSrc }: { bannerImageSrc: string }) => {
   return (
     <figure className="relative">
       <Image
+        priority
         src={bannerImageSrc}
         alt="banner-image"
         height={888}
