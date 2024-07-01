@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-transparent dark:bg-gray-900">
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GAID} />
+        <GoogleAnalytics gaId="G-XZ7YBREFJV" />
         <Providers>{children}</Providers>
       </body>
     </html>
