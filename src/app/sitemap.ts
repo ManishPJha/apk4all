@@ -1,10 +1,11 @@
 import { MetadataRoute } from "next";
 
-import { getAllSinglePage } from "@/app/actions";
+import { getAllAuthors, getAllSinglePage } from "@/app/actions";
 import config from "@/config/default";
 
 export default async function sitemap() {
   const allPosts = await getAllSinglePage(config.blogsFolder);
+  const allAuthors = await getAllAuthors(config.authorsFolder);
 
   const siteMap: MetadataRoute.Sitemap = [
     {
@@ -33,6 +34,15 @@ export default async function sitemap() {
       lastModified: post.frontmatter.publishedAt
         ? new Date(post.frontmatter.publishedAt)
         : new Date(),
+      changeFrequency: "weekly",
+      priority: 0.5,
+    })
+  );
+
+  allAuthors.map((author) =>
+    siteMap.push({
+      url: `${config.appUrl}/authors/${author.slug}`,
+      lastModified: new Date(Date.now()),
       changeFrequency: "weekly",
       priority: 0.5,
     })
